@@ -383,7 +383,7 @@ if (button_combo == 1) {
 } else {
     lives = 3
 }
-tiles.setTilemap(tiles.createTilemap(hex`0a0008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`, img`
+tiles.setTilemap(tiles.createTilemap(hex`0a0008000303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303010101010101010101010202020202020202020202020202020202020202`, img`
     . . . . . . . . . . 
     . . . . . . . . . . 
     . . . . . . . . . . 
@@ -392,4 +392,41 @@ tiles.setTilemap(tiles.createTilemap(hex`0a0008000000000000000000000000000000000
     . . . . . . . . . . 
     . . . . . . . . . . 
     . . . . . . . . . . 
-    `, [myTiles.transparency16], TileScale.Sixteen))
+    `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3], TileScale.Sixteen))
+info.setLife(3)
+let mySprite = sprites.create(img`
+    . . . . . . 3 . 3 . . . . . . . 
+    . . . . . 3 3 3 3 3 . . . . . . 
+    . . . . . 3 4 4 4 3 . . . . . . 
+    . . . . . 4 4 4 8 4 . . . . . . 
+    . . . . . 4 4 3 4 4 . . . . . . 
+    . . . . . 4 4 3 3 3 . . . . . . 
+    . . . . . . 4 4 4 . . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . 5 5 a 5 5 . . . . . . 
+    . . . . 5 5 5 a 5 5 5 . . . . . 
+    . . . 5 5 5 a a a 5 5 5 . . . . 
+    . . 5 5 5 5 a a a 5 5 5 5 . . . 
+    . . . . . 4 . . . 4 . . . . . . 
+    . . . . . 4 . . . 4 . . . . . . 
+    . . . . . 4 . . . 4 . . . . . . 
+    . . . . . 4 4 . . 4 4 . . . . . 
+    `, SpriteKind.Player)
+tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 4))
+forever(function () {
+    info.setScore(lives)
+    if (controller.right.isPressed()) {
+        if (controller.B.isPressed()) {
+            mySprite.x += 2
+        } else {
+            mySprite.x += 1
+        }
+    }
+    if (controller.left.isPressed()) {
+        if (controller.B.isPressed()) {
+            mySprite.x += -2
+        } else {
+            mySprite.x += -1
+        }
+    }
+})
