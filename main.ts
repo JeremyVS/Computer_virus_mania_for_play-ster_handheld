@@ -1,8 +1,39 @@
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (showing_start == 0) {
+        for (let index = 0; index < 10; index++) {
+            mySprite.y += -2
+            pause(50)
+        }
+        for (let index = 0; index < 5; index++) {
+            mySprite.y += -1
+            pause(50)
+        }
+        if (controller.A.isPressed()) {
+            for (let index = 0; index < 5; index++) {
+                mySprite.y += -1
+                pause(50)
+            }
+            for (let index = 0; index < 5; index++) {
+                mySprite.y += 1
+                pause(50)
+            }
+        }
+        for (let index = 0; index < 5; index++) {
+            mySprite.y += 1
+            pause(50)
+        }
+        for (let index = 0; index < 10; index++) {
+            mySprite.y += 2
+            pause(50)
+        }
+    }
+})
 controller.combos.attachSpecialCode(function () {
     if (showing_start == 1) {
         button_combo = 1
     }
 })
+let mySprite: Sprite = null
 let lives = 0
 let button_combo = 0
 let showing_start = 0
@@ -394,7 +425,7 @@ tiles.setTilemap(tiles.createTilemap(hex`0a0008000303030303030303030303030303030
     . . . . . . . . . . 
     `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3], TileScale.Sixteen))
 info.setLife(3)
-let mySprite = sprites.create(img`
+mySprite = sprites.create(img`
     . . . . . . 3 . 3 . . . . . . . 
     . . . . . 3 3 3 3 3 . . . . . . 
     . . . . . 3 4 4 4 3 . . . . . . 
@@ -413,6 +444,24 @@ let mySprite = sprites.create(img`
     . . . . . 4 4 . . 4 4 . . . . . 
     `, SpriteKind.Player)
 tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 4))
+let bad_yucks = sprites.create(img`
+    . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
+    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
+    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+    2 2 2 2 2 2 2 4 4 2 2 2 2 2 2 2 
+    2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
+    2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
+    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+    2 2 2 2 4 4 4 4 4 4 4 4 2 2 2 2 
+    2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
+    2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
+    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
+    . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
+    `, SpriteKind.Enemy)
 forever(function () {
     info.setScore(lives)
     if (controller.right.isPressed()) {
