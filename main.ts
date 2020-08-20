@@ -49,6 +49,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         pause(2000)
     }
 })
+let bad_yucks: Sprite = null
 let bad_yuck_life = 0
 let mySprite: Sprite = null
 let lives = 0
@@ -56,6 +57,7 @@ let button_combo = 0
 let showing_start = 0
 showing_start = 1
 button_combo = 0
+let going = 0
 scene.setBackgroundImage(img`
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -437,9 +439,9 @@ tiles.setTilemap(tiles.createTilemap(hex`0a0008000303030303030303030303030303030
     . . . . . . . . . . 
     . . . . . . . . . . 
     . . . . . . . . . . 
-    . . . . . . . . . . 
-    . . . . . . . . . . 
-    . . . . . . . . . . 
+    2 2 2 2 2 2 2 2 2 2 
+    2 2 2 2 2 2 2 2 2 2 
+    2 2 2 2 2 2 2 2 2 2 
     `, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3], TileScale.Sixteen))
 info.setLife(3)
 mySprite = sprites.create(img`
@@ -461,25 +463,43 @@ mySprite = sprites.create(img`
     . . . . . 4 4 . . 4 4 . . . . . 
     `, SpriteKind.Player)
 tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 4))
-let bad_yucks = sprites.create(img`
-    . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
-    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-    2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-    2 2 2 2 2 2 2 4 4 2 2 2 2 2 2 2 
-    2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
-    2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
-    2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-    2 2 2 2 4 4 4 4 4 4 4 4 2 2 2 2 
-    2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
-    2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
-    . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
-    . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
-    `, SpriteKind.Enemy)
-bad_yuck_life = 3
+going = 1
+forever(function () {
+    for (let index = 0; index < 10; index++) {
+        bad_yucks = sprites.create(img`
+            . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
+            . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 4 4 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
+            2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 4 4 4 4 4 4 4 4 2 2 2 2 
+            2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
+            2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
+            . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
+            . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
+            `, SpriteKind.Enemy)
+        tiles.placeOnTile(bad_yucks, tiles.getTileLocation(9, 4))
+        bad_yuck_life = 3
+        while (!(bad_yuck_life == 0)) {
+            pause(100)
+        }
+        bad_yucks.destroy(effects.disintegrate, 500)
+    }
+})
+forever(function () {
+    if (bad_yucks.x == 152) {
+        bad_yucks.setVelocity(-25, 0)
+    }
+    if (bad_yucks.x == 8) {
+        bad_yucks.setVelocity(25, 0)
+    }
+})
 forever(function () {
     info.setScore(lives)
     if (controller.right.isPressed()) {
