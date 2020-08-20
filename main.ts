@@ -509,7 +509,7 @@ forever(function () {
             . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
             `, SpriteKind.Enemy)
         tiles.placeOnTile(bad_yucks, tiles.getTileLocation(9, 4))
-        bad_yuck_life = 1
+        bad_yuck_life = 3
         while (!(bad_yuck_life == 0)) {
             pause(100)
         }
@@ -553,7 +553,7 @@ forever(function () {
     tiles.placeOnTile(MEGA_BAD_YUCK, tiles.getTileLocation(9, 4))
     MEGA_BAD_YUCK.setFlag(SpriteFlag.StayInScreen, true)
     mySprite.setVelocity(-50, 0)
-    Mega_Bad_Yuck_life = 1
+    Mega_Bad_Yuck_life = 4
     while (!(Mega_Bad_Yuck_life == 0)) {
         pause(100)
     }
