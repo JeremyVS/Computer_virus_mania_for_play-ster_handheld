@@ -28,11 +28,28 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+info.onLifeZero(function () {
+    lives += -1
+    info.setLife(3)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 4))
+})
 controller.combos.attachSpecialCode(function () {
     if (showing_start == 1) {
         button_combo = 1
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    if (sprite.y + 5 < otherSprite.y - 5) {
+        bad_yuck_life += -1
+        otherSprite.say(convertToText(bad_yuck_life), 2000)
+        pause(2000)
+    } else {
+        info.changeLifeBy(-1)
+        sprite.say("Ouch", 2000)
+        pause(2000)
+    }
+})
+let bad_yuck_life = 0
 let mySprite: Sprite = null
 let lives = 0
 let button_combo = 0
@@ -462,6 +479,7 @@ let bad_yucks = sprites.create(img`
     . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
     . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
     `, SpriteKind.Enemy)
+bad_yuck_life = 3
 forever(function () {
     info.setScore(lives)
     if (controller.right.isPressed()) {
@@ -477,5 +495,8 @@ forever(function () {
         } else {
             mySprite.x += -1
         }
+    }
+    if (lives == 0) {
+        game.over(false, effects.dissolve)
     }
 })
