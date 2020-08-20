@@ -70,6 +70,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     }
 })
 let mySprite2: Sprite = null
+let MEGA_BAD_YUCK: Sprite = null
 let bad_yucks: Sprite = null
 let bad_yuck_life = 0
 let Mega_Bad_Yuck_life = 0
@@ -80,6 +81,7 @@ let showing_start = 0
 showing_start = 1
 button_combo = 0
 let going = 0
+let Mega_Bad_Yuck_Here = 0
 scene.setBackgroundImage(img`
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -507,13 +509,13 @@ forever(function () {
             . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
             `, SpriteKind.Enemy)
         tiles.placeOnTile(bad_yucks, tiles.getTileLocation(9, 4))
-        bad_yuck_life = 3
+        bad_yuck_life = 1
         while (!(bad_yuck_life == 0)) {
             pause(100)
         }
         bad_yucks.destroy(effects.disintegrate, 500)
     }
-    bad_yucks = sprites.create(img`
+    MEGA_BAD_YUCK = sprites.create(img`
         2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
         2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
         2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
@@ -547,8 +549,11 @@ forever(function () {
         2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
         2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
         `, SpriteKind.Big_Bad_BOSS)
-    tiles.placeOnTile(bad_yucks, tiles.getTileLocation(9, 4))
-    Mega_Bad_Yuck_life = 4
+    Mega_Bad_Yuck_Here = 1
+    tiles.placeOnTile(MEGA_BAD_YUCK, tiles.getTileLocation(9, 4))
+    MEGA_BAD_YUCK.setFlag(SpriteFlag.StayInScreen, true)
+    mySprite.setVelocity(-50, 0)
+    Mega_Bad_Yuck_life = 1
     while (!(Mega_Bad_Yuck_life == 0)) {
         pause(100)
     }
@@ -693,8 +698,7 @@ forever(function () {
         1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
         1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
         `)
-    pause(2000)
-    bad_yucks.destroy(effects.disintegrate, 500)
+    MEGA_BAD_YUCK.destroy(effects.disintegrate, 500)
     pause(500)
     mySprite.destroy()
     pause(2000)
@@ -763,6 +767,16 @@ forever(function () {
         `, SpriteKind.Star)
     while (true) {
         pause(100)
+    }
+})
+forever(function () {
+    if (Mega_Bad_Yuck_Here == 1) {
+        if (MEGA_BAD_YUCK.x == 152) {
+            MEGA_BAD_YUCK.setVelocity(-25, 0)
+        }
+        if (MEGA_BAD_YUCK.x == 8) {
+            MEGA_BAD_YUCK.setVelocity(25, 0)
+        }
     }
 })
 forever(function () {
