@@ -40,7 +40,7 @@ info.onLifeZero(function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Big_Bad_BOSS, function (sprite, otherSprite) {
     if (sprite.y + 5 < otherSprite.y - 14) {
         Mega_Bad_Yuck_life += -1
-        otherSprite.say(convertToText(bad_yuck_life), 2000)
+        otherSprite.say(convertToText(Mega_Bad_Yuck_life), 2000)
         pause(2000)
     } else {
         info.changeLifeBy(-1)
@@ -49,7 +49,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Big_Bad_BOSS, function (sprite, 
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Star, function (sprite, otherSprite) {
-    music.playMelody("C D E F G A B C5 ", 500)
+    music.playMelody("C5 C5 C5 B B B A G ", 500)
+    music.playMelody("G G G A B B A G ", 500)
     pause(300)
     game.over(true, effects.confetti)
 })
@@ -489,71 +490,71 @@ mySprite = sprites.create(img`
 tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 4))
 going = 1
 forever(function () {
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 6; index++) {
         bad_yucks = sprites.create(img`
-            . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
-            . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
-            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-            2 2 2 2 4 4 4 2 2 4 4 4 2 2 2 2 
-            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-            2 2 2 2 2 2 2 4 4 2 2 2 2 2 2 2 
-            2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
-            2 2 2 2 2 2 4 4 4 4 2 2 2 2 2 2 
-            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-            2 2 2 2 4 4 4 4 4 4 4 4 2 2 2 2 
-            2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
-            2 2 2 4 2 2 2 2 2 2 2 2 4 2 2 2 
-            . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
-            . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
+            . . . . 2 . 4 . . . 2 . . . 4 . 
+            4 . 2 2 . . 4 . 2 . . . 2 . . . 
+            . . . . 2 . 4 . 2 2 . . 2 . 4 . 
+            . 4 4 4 . . 4 . . 2 . 4 4 4 4 . 
+            . . . . . . . . . . . . . . . . 
+            . 2 2 2 . 2 2 2 2 2 2 2 . . 4 . 
+            . 2 . . . 2 4 2 2 4 2 2 . 4 4 . 
+            . . 4 4 . 2 2 2 2 2 2 . . 4 . 2 
+            . . 4 . 2 2 2 4 4 2 2 . 4 . . . 
+            . 4 4 . 2 2 4 2 2 4 2 . . . . 4 
+            4 . 2 . 2 2 2 2 2 2 2 . 2 2 . . 
+            . 2 2 . 4 . . . 4 . . 4 4 . . . 
+            . 2 . 4 4 . 2 . 4 . 2 2 . 4 4 . 
+            . 2 . 4 . . 2 2 4 4 . . 2 . . . 
+            . . 4 4 . . . . . 4 . . . . . . 
+            . . 4 . . . . . 2 . . . 4 . . . 
             `, SpriteKind.Enemy)
         tiles.placeOnTile(bad_yucks, tiles.getTileLocation(9, 4))
-        bad_yuck_life = 3
+        bad_yuck_life = 1
         while (!(bad_yuck_life == 0)) {
             pause(100)
         }
         bad_yucks.destroy(effects.disintegrate, 500)
     }
     MEGA_BAD_YUCK = sprites.create(img`
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 f f f f f 2 2 2 f f f f f 2 2 
-        2 f f f f f 2 2 2 f f f f f 2 2 
-        2 f f f f f 2 2 2 f f f f f 2 2 
-        2 f f f f f 2 2 2 f f f f f 2 2 
-        2 f f f f f 2 2 2 f f f f f 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 3 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 3 3 3 2 2 2 2 2 2 2 
-        2 2 2 2 2 3 3 3 3 3 2 2 2 2 2 2 
-        2 2 2 2 2 3 3 3 3 3 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 e e e e e 2 2 2 2 2 2 2 
-        2 2 2 2 e e e e e e e 2 2 2 2 2 
-        2 2 2 e e e e e e e e e 2 2 2 2 
-        2 e e e e e e e e e e e e 2 2 2 
-        2 e e e e e e 2 e e e e e 2 2 2 
-        2 e e e e e 2 2 2 e e e e e e 2 
-        2 e e e 2 2 2 2 2 2 e e e e e 2 
-        2 e e e 2 2 2 2 2 2 2 e e e e 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 4 4 4 4 4 . . . . . . 
+        . . . 4 4 4 2 4 4 2 4 4 . . . . 
+        . . . 4 4 4 4 4 4 4 4 4 4 . . . 
+        . . . 4 4 4 4 4 4 4 4 4 4 . . . 
+        . . . 4 4 4 4 2 2 2 2 4 4 . . . 
+        . . . 4 4 4 2 2 4 4 2 2 4 4 . . 
+        . . . 4 4 4 2 4 4 4 4 2 4 4 . . 
+        . . . . . 4 4 4 4 4 4 4 4 4 . . 
+        . . . . . . 4 4 4 4 4 4 4 . . . 
+        . . . . . . . . 4 4 4 4 . . . . 
+        . . . . . . . f f f f f . . . . 
+        . . . . . f f f f f f f f . . . 
+        . . . . f f f f 8 8 f f f . . . 
+        . 6 6 6 f f f 8 8 8 8 f f . . . 
+        . 6 . . f f f 8 8 8 8 f f f 6 6 
+        . 6 . . f f f 8 8 8 8 8 f f . 6 
+        . 6 . . f f f f 8 8 8 8 f f . 6 
+        . 6 . . f f f f f f f f f f . 6 
+        . 6 . . f f f f f f f f f f . 6 
+        . 6 . . . f f f f f f f f f . 6 
+        . . . . . . . f f f f f f f . 6 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . . . 6 . 6 . . . . . 
+        . . . . . . 6 6 6 . 6 6 6 . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
         `, SpriteKind.Big_Bad_BOSS)
     Mega_Bad_Yuck_Here = 1
     tiles.placeOnTile(MEGA_BAD_YUCK, tiles.getTileLocation(9, 4))
     MEGA_BAD_YUCK.setFlag(SpriteFlag.StayInScreen, true)
     mySprite.setVelocity(-50, 0)
-    Mega_Bad_Yuck_life = 4
+    Mega_Bad_Yuck_life = 1
     while (!(Mega_Bad_Yuck_life == 0)) {
         pause(100)
     }
